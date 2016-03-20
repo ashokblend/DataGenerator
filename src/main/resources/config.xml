@@ -3,21 +3,21 @@
       <Columns>
 		   <Column>
 				   <cardinality>100</cardinality>
-				   <name>imei</name>
+				   <name>column1</name>
 				   <datatype>String</datatype>
-				   <template>imei</template>
+				   <template>country</template>
 		   </Column>
 		     <Column>
 				   <cardinality>1000</cardinality>
-				   <name>mac</name>
+				   <name>CountryCode</name>
 				   <datatype>Integer</datatype>
 				   <template>2</template>
 		   </Column>
 		    <Column>
 				   <cardinality>100</cardinality>
-				   <name>protocol</name>
+				   <name>City</name>
 				   <datatype>String</datatype>
-				   <template>protocol</template>
+				   <template>city</template>
 		   </Column>
 		   <Column>
 				   <cardinality>12</cardinality>

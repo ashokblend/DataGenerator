@@ -46,14 +46,17 @@ public class DataGenerator
 		{
 			int totalNoOfRecord = configModel.getTotalRecords();
 			int recordsPerFile = configModel.getTotalRecordsPerFile();
+			int counter=0;
 			for (int i = 0; i < totalNoOfRecord; i++)
 			{
-				if (i == recordsPerFile)
+				if (counter == recordsPerFile)
 				{
 					resetWriter();
+					counter=0;
 				}
 				String record = createRecord(i);
 				bw.write(record+"\n");
+				counter++;
 			}
 		}
 		catch(Exception e)
@@ -64,6 +67,7 @@ public class DataGenerator
 		{
 			try
 			{
+				bw.flush();
 				bw.close();
 			}
 			catch (IOException e)
@@ -173,7 +177,7 @@ public class DataGenerator
 				bw.flush();
 				bw.close();
 			}
-			SimpleDateFormat formatter=new SimpleDateFormat("HHmmss");
+			SimpleDateFormat formatter=new SimpleDateFormat("HHmmssSSS");
 			String fileName=formatter.format(new Date())+".csv";
 			File outputFile=new File(outputPath,fileName);
 			FileWriter fw= new FileWriter(outputFile);

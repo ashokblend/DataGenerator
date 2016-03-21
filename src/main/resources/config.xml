@@ -2,32 +2,38 @@
 <Config>
       <Columns>
 		   <Column>
-				   <cardinality>100</cardinality>
-				   <name>column1</name>
+				   <cardinality>1000</cardinality>
+				   <name>imei</name>
 				   <datatype>String</datatype>
-				   <template>country</template>
+				   <template>imei</template>
 		   </Column>
 		     <Column>
-				   <cardinality>1000</cardinality>
-				   <name>CountryCode</name>
-				   <datatype>Integer</datatype>
-				   <template>2</template>
+				   <cardinality>500</cardinality>
+				   <name>protocol</name>
+				   <datatype>String</datatype>
+				   <template>apn</template>
+		   </Column>
+		   <Column>
+				   <cardinality>100</cardinality>
+				   <name>MAC</name>
+				   <datatype>String</datatype>
+				   <template>mac</template>
 		   </Column>
 		    <Column>
-				   <cardinality>100</cardinality>
+				   <cardinality>50</cardinality>
 				   <name>City</name>
 				   <datatype>String</datatype>
 				   <template>city</template>
 		   </Column>
-		   <Column>
+		   <!--  Column>
 				   <cardinality>12</cardinality>
 				   <name>date</name>
 				   <datatype>Date</datatype>
 				   <template>yyyyMMdd-H:mm:ss</template>
-		   </Column>
+		   </Column-->
 		   
       </Columns>
       <OutputDir>D:/data</OutputDir>
       <TotalRecordSize>1000</TotalRecordSize>
-      <RecordsPerFile>100</RecordsPerFile>
+      <RecordsPerFile>1000</RecordsPerFile>
 </Config>

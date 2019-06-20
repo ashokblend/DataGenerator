@@ -122,7 +122,7 @@ public class DataGenerator
 	private String getRandomNumeric(Random random, Column column)
 	{
 		String randomInt=getRandomInteger(random, column);
-		return randomInt.concat(".").concat(Double.toString(random.nextGaussian()));
+		return randomInt.concat(".").concat(getRandomInteger(random, column));
 	}
 
 	private String getRandomInteger(Random random, Column column)

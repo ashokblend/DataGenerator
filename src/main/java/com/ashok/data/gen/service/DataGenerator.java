@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -116,10 +118,23 @@ public class DataGenerator
 			return getRandomInteger(random, column);
 		case NUMERIC:
 			return getRandomNumeric(random, column);
+		case IP:
+			return getRandomIpAddress(random, column);
 		default:
 			return getRandomString(random, column);
 		}
 
+	}
+
+	private String getRandomIpAddress(Random random, Column column) {
+		String randomIp = getRandomInteger(random, column);
+		try {
+			InetAddress ip = InetAddress.getByName(getRandomInteger(random, column));
+			randomIp = ip.getHostAddress();
+		} catch (UnknownHostException e) {
+			//ignore
+		}
+		return randomIp;
 	}
 
 	private String getTime() {

@@ -46,7 +46,7 @@
 		<Column>
 			<cardinality>1000000</cardinality>
 			<name>client_ip</name>
-			<datatype>Integer</datatype>
+			<datatype>ip</datatype>
 			<template>1</template>
 		</Column>
 		<Column>
@@ -58,7 +58,7 @@
 		<Column>
 			<cardinality>1000000</cardinality>
 			<name>server_ip</name>
-			<datatype>Integer</datatype>
+			<datatype>ip</datatype>
 			<template>1</template>
 		</Column>
 		<Column>

@@ -2,7 +2,7 @@ package com.ashok.data.gen.model;
 
 public enum DataType
 {
-	STRING,DATE,INTEGER,NUMERIC,TIMESTAMP;
+	STRING,DATE,INTEGER,NUMERIC,IP,TIMESTAMP;
 
 	public static DataType getDataType(String dataType)
 	{
@@ -13,6 +13,7 @@ public enum DataType
 		case "date": return DATE;
 		case "numeric": return NUMERIC;
 		case "timestamp": return TIMESTAMP;
+		case "ip" : return IP;
 		default: return STRING;
 		}
 		

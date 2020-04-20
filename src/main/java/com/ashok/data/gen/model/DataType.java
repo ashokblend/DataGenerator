@@ -2,16 +2,17 @@ package com.ashok.data.gen.model;
 
 public enum DataType
 {
-	STRING,DATE,INTEGER,NUMERIC;
+	STRING,DATE,INTEGER,NUMERIC,TIMESTAMP;
 
 	public static DataType getDataType(String dataType)
 	{
-		switch(dataType)
+		switch(dataType.toLowerCase())
 		{
-		case "String" : return STRING;
-		case "Integer": return INTEGER;
-		case "Date": return DATE;
-		case "Numeric": return NUMERIC;
+		case "string" : return STRING;
+		case "integer": return INTEGER;
+		case "date": return DATE;
+		case "numeric": return NUMERIC;
+		case "timestamp": return TIMESTAMP;
 		default: return STRING;
 		}
 		

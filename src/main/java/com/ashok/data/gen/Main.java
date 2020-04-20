@@ -11,7 +11,7 @@ public class Main
 	{
 		try
 		{
-			String configXmlPath = "D:\\github\\DataGenerator\\src\\main\\resources\\config.xml";
+			String configXmlPath = "/home/ashok/github/DataGenerator/src/main/resources/config.xml";
 			if (args.length == 1)
 			{
 				configXmlPath = args[0];

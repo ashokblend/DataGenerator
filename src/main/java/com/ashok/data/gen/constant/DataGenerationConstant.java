@@ -17,5 +17,9 @@ public interface DataGenerationConstant
 	public static final String COLUMN_TEMPLATE="template";
 	
 	public static final String COLUMN="Column";
+	
+	public static final String DELIMITER="\t";
+	
+	public static final String EXT=".tsv";
 
 }

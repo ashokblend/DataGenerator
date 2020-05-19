@@ -1,9 +1,5 @@
 package com.ashok.data.gen.service;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -16,31 +12,18 @@ import java.util.Random;
 import com.ashok.data.gen.constant.DataGenerationConstant;
 import com.ashok.data.gen.model.Column;
 import com.ashok.data.gen.model.ConfigModel;
+import com.ashok.data.gen.sink.DataSink;
 
 public class DataGenerator
 {
 
 	private ConfigModel configModel;
 	private Map<String, Random> columnRandom = new HashMap<String, Random>();
-	private BufferedWriter bw;
-	private String outputPath;
-	public DataGenerator(ConfigModel configModel)
+	private DataSink sink;
+	public DataGenerator(ConfigModel configModel, DataSink sink)
 	{
 		this.configModel = configModel;
-		intialise();
-	}
-
-	private void intialise()
-	{
-		SimpleDateFormat formatter=new SimpleDateFormat("yyyyMMdd");
-		outputPath=this.configModel.getOutputDirectory()+File.separator+formatter.format(new Date());
-		File outputDir = new File(outputPath);
-		if(!outputDir.exists())
-		{
-			outputDir.mkdirs();
-		}
-		resetWriter();
-
+		this.sink = sink;
 	}
 
 	public void generate()
@@ -48,36 +31,16 @@ public class DataGenerator
 		try
 		{
 			int totalNoOfRecord = configModel.getTotalRecords();
-			int recordsPerFile = configModel.getTotalRecordsPerFile();
-			int counter=0;
 			for (int i = 0; i < totalNoOfRecord; i++)
 			{
-				if (counter == recordsPerFile)
-				{
-					resetWriter();
-					counter=0;
-				}
 				String record = createRecord(i);
-				bw.write(record+"\n");
-				counter++;
+				sink.write(record);
 			}
+			sink.close();
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
-				bw.flush();
-				bw.close();
-			}
-			catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -189,28 +152,4 @@ public class DataGenerator
 		String template=column.getTemplate();
 		return template+random.nextInt(column.getCardinality());
 	}
-
-	private void resetWriter()
-	{
-		try
-		{
-			if(null!=bw)
-			{
-				bw.flush();
-				bw.close();
-			}
-			SimpleDateFormat formatter=new SimpleDateFormat("HHmmssSSS");
-			String fileName=formatter.format(new Date())+DataGenerationConstant.EXT;
-			File outputFile=new File(outputPath,fileName);
-			FileWriter fw= new FileWriter(outputFile);
-			bw=new BufferedWriter(fw);
-			System.out.println("Output:"+outputFile.getAbsolutePath());
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-	}
-
 }

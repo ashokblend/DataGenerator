@@ -164,7 +164,19 @@
 			<template>service</template>
 		</Column>
 	</Columns>
-	<OutputDir>/home/ashok/junk/data/gen</OutputDir>
+	<Sink>
+	  <sinktype>kafkasink</sinktype>
+	  <filesink>
+	      <OutputDir>/home/ashok/junk/data/gen</OutputDir>
+	      <RecordsPerFile>1000</RecordsPerFile>
+	  </filesink>
+	  <kafkasink>
+	         <topic>stats_test</topic>
+	         <bootStrapServer>localhost:9092</bootStrapServer>
+	         <ack>all</ack>
+	         <retry>0</retry>
+	         <batchSize>16384</batchSize>
+	  </kafkasink>
+	</Sink>
 	<TotalRecordSize>1000</TotalRecordSize>
-	<RecordsPerFile>1000</RecordsPerFile>
 </Config>

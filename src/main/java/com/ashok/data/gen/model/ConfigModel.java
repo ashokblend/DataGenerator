@@ -1,6 +1,7 @@
 package com.ashok.data.gen.model;
 
 import java.util.List;
+import java.util.Map;
 
 public class ConfigModel
 {
@@ -11,6 +12,8 @@ public class ConfigModel
 	private String outputDirectory;
 	
 	private List<Column> columns;
+
+	private Map<String, String> sinkInfo;
 
 	public int getTotalRecords()
 	{
@@ -51,7 +54,13 @@ public class ConfigModel
 	{
 		this.columns = columns;
 	}
-	
-	
+
+    public Map<String, String> getSinkInfo() {
+        return sinkInfo;
+    }
+
+    public void setSinkInfo(Map<String, String> sinkInfo) {
+       this.sinkInfo = sinkInfo;
+    }
 
 }

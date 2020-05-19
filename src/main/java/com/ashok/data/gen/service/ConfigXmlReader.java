@@ -1,10 +1,13 @@
 package com.ashok.data.gen.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.ashok.data.gen.constant.DataGenerationConstant;
@@ -25,19 +28,42 @@ public class ConfigXmlReader
 	public ConfigModel getConfiguration()
 	{
 		List<Column> columns = getColumns();
+		
 		int totalNoOfRecords = getTotalNoOfRecords();
-		int recordPerFile = getRecordPerFile();
+		Map<String, String> sinkInfo = getSinkInfo();
 		String outputDir = getOutputDirectory();
 		ConfigModel configModel = new ConfigModel();
 		configModel.setColumns(columns);
 		configModel.setOutputDirectory(outputDir);
 		configModel.setTotalRecords(totalNoOfRecords);
-		configModel.setTotalRecordsPerFile(recordPerFile);
-		
+		configModel.setSinkInfo(sinkInfo);
 		return configModel;
 	}
 
-	private String getOutputDirectory()
+	private Map<String, String> getSinkInfo() 
+	{
+	  Map<String, String> sinkInfo = new HashMap<>();
+	  NodeList columns = configDom
+          .getElementsByTagName(DataGenerationConstant.SINK);
+	  String sinkType = XmlUtil.getTextValue((Element)columns.item(0), DataGenerationConstant.SINK_TYPE);
+	  sinkInfo.put(DataGenerationConstant.SINK_TYPE, sinkType);
+	  NodeList sink = configDom
+          .getElementsByTagName(sinkType);
+	  
+	  Element el = (Element) sink.item(0);
+	  NodeList sinkAttr = el.getChildNodes();
+      for(int i=0;i< sinkAttr.getLength(); i++) {
+        if(sinkAttr.item(i).getNodeType()==Node.ELEMENT_NODE) {
+          String key = sinkAttr.item(i).getNodeName();
+          String value = sinkAttr.item(i).getFirstChild().getNodeValue();
+          sinkInfo.put(key, value);
+        }
+      }
+	  
+	  return sinkInfo;
+    }
+
+  private String getOutputDirectory()
 	{
 		NodeList config = configDom
 				.getElementsByTagName("Config");

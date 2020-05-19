@@ -1,8 +1,12 @@
 package com.ashok.data.gen;
 
+import java.util.Map;
+
 import com.ashok.data.gen.model.ConfigModel;
 import com.ashok.data.gen.service.ConfigXmlReader;
 import com.ashok.data.gen.service.DataGenerator;
+import com.ashok.data.gen.sink.DataSink;
+import com.ashok.data.gen.util.Utility;
 
 public class Main
 {
@@ -18,7 +22,9 @@ public class Main
 			}
 			ConfigXmlReader configXmlReader = new ConfigXmlReader(configXmlPath);
 			ConfigModel configModel=configXmlReader.getConfiguration();
-			DataGenerator dataGenerator = new DataGenerator(configModel);
+			Map<String, String> sinkInfo =configModel.getSinkInfo();
+			DataSink dataSink = Utility.getDataSink(sinkInfo);
+			DataGenerator dataGenerator = new DataGenerator(configModel, dataSink);
 			dataGenerator.generate();
 		}
 		catch (Exception e)
